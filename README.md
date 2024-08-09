@@ -64,4 +64,17 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ### Migraciones
+Instalar los paquetes la primera vez
+```
+composer update
+```
 
+Levantar la aplicación
+```
+php artisan serve
+```
+
+Realiza la migración de las tabla
+```
+php artisan migrate
+```
