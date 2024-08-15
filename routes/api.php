@@ -14,13 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 
-Route::apiResource('products', ProductController::class);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'jwt.auth', 'namespace' => 'App\Http\Controllers'], function () {
+    Route::apiResource('products', ProductController::class);
+    Route::get('user-profile', [AuthController::class, 'userProfile']);
 });
 
 Route::post('login', 'App\Http\Controllers\AuthController@login');
+Route::post('health', 'App\Http\Controllers\AuthController@health');
 Route::post('register', 'App\Http\Controllers\AuthController@register');
-Route::get('user-profile', 'App\Http\Controllers\AuthController@userProfile')->middleware('jwt.auth');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 

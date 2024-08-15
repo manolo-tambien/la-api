@@ -9,6 +9,10 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
+    public function health(Request $request){
+         return response()->json(['message' => 'API is running!'], 200);
+    }
+
     public function register(Request $request)
     {
         $user = User::create([
