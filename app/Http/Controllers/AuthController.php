@@ -25,18 +25,40 @@ class AuthController extends Controller
         return response()->json(compact('user', 'token'), 201);
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
+    //     try {
+    //         if (!$token = JWTAuth::attempt($credentials)) {
+    //             return response()->json(['error' => 'invalid_credentials'], 400);
+    //         }
+    //     } catch (JWTException $e) {
+    //         return response()->json(['error' => 'could_not_create_token'], 500);
+    //     }
+    //     return response()->json(compact('token'));
+    // }
     public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'invalid_credentials'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'could_not_create_token'], 500);
+{
+    $credentials = $request->only('email', 'password');
+    try {
+        if (!$token = JWTAuth::attempt($credentials)) {
+            return response()->json(['error' => 'invalid_credentials'], 400);
         }
-        return response()->json(compact('token'));
+    } catch (JWTException $e) {
+        return response()->json(['error' => 'could_not_create_token'], 500);
     }
+
+    // Obtener el usuario autenticado
+    $user = auth()->user();
+
+    // Retornar el token, el estado true y el nombre del usuario
+    return response()->json([
+        'token' => $token,
+        'status' => true,
+        'name' => $user->name
+    ]);
+}
+
 
     public function userProfile() 
     {
