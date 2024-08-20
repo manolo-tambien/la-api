@@ -18,7 +18,8 @@ use App\Http\Controllers\AuthController;
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'App\Http\Controllers'], function () {
     //Route::apiResource('products', ProductController::class);
-    Route::get('productos', [ProductController::class, 'index']);
+    // Route::get('productos', [ProductController::class, 'index']);
+    Route::get('products', [ProductController::class, 'index']);
     Route::get('user-profile', [AuthController::class, 'userProfile']);
 });
 
